@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "첫 글",
+    "body": "React와 Next.js의 첫 인상. SSR의 의미를 체감한 하루.",
+    "author": "kim",
+    "updatedAt": "2026-04-16T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "두번째 글",
+    "body": "Nginx try_files 한 줄이 SPA 라우팅을 살린다.",
+    "author": "park",
+    "updatedAt": "2026-04-16T10:05:00Z"
+  },
+  {
+    "id": 3,
+    "title": "세번째 글",
+    "body": "SSG는 빌드 타임 fetch, SSR은 요청 타임 fetch.",
+    "author": "lee",
+    "updatedAt": "2026-04-16T10:10:00Z"
+  },
+  {
+    "id": 4,
+    "title": "네번째 글",
+    "body": "ISR은 SSG의 지속성과 SSR의 신선함을 절충한다.",
+    "author": "choi",
+    "updatedAt": "2026-04-16T10:15:00Z"
+  },
+  {
+    "id": 5,
+    "title": "다섯번째 글",
+    "body": "미들웨어는 HTTP 단계에서 동작해 깜빡임을 없앤다.",
+    "author": "jung",
+    "updatedAt": "2026-04-16T10:20:00Z"
+  }
+]
