@@ -1,0 +1,10 @@
+services:
+  react:
+    build: ./react
+    ports:
+      - "3901:3000"
+
+  next:
+    build: ./next
+    ports:
+      - "3902:3000"

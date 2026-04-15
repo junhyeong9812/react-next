@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ../backend
+    ports:
+      - "8080:8080"
+    environment:
+      API_KEY: demo-secret-key
+      SLOW_ENDPOINT_DELAY_MS: "2000"
+
+  react:
+    build: ./react
+    ports:
+      - "3801:3000"
+    depends_on:
+      - backend
+    environment:
+      API_BASE: http://backend:8080
+
+  next:
+    build: ./next
+    ports:
+      - "3802:3000"
+    depends_on:
+      - backend
+    environment:
+      API_BASE: http://backend:8080

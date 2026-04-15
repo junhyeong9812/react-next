@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ../backend
+    ports:
+      - "8080:8080"
+    environment:
+      API_KEY: demo-secret-key
+
+  react:
+    build: ./react
+    ports:
+      - "3501:3000"
+    depends_on:
+      - backend
+
+  next:
+    build: ./next
+    ports:
+      - "3502:3000"
+    depends_on:
+      - backend

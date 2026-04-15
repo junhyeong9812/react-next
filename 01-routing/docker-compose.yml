@@ -1,0 +1,41 @@
+services:
+  backend:
+    build: ../backend
+    ports:
+      - "8080:8080"
+    environment:
+      API_KEY: demo-secret-key
+
+  react-bare:
+    build: ./react-bare
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE: http://localhost:8080
+      VITE_API_KEY: demo-secret-key
+
+  react-nginx-broken:
+    build: ./react-nginx-broken
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+
+  react-nginx-fixed:
+    build: ./react-nginx-fixed
+    ports:
+      - "3003:80"
+    depends_on:
+      - backend
+
+  next-app:
+    build: ./next-app
+    ports:
+      - "3004:3000"
+    depends_on:
+      - backend
+    environment:
+      API_BASE: http://backend:8080
+      API_KEY: demo-secret-key

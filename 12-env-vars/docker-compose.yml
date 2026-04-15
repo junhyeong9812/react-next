@@ -1,0 +1,16 @@
+services:
+  react:
+    build:
+      context: ./react
+      args:
+        VITE_PUBLIC_KEY: this-is-public
+    ports:
+      - "3121:3000"
+
+  next:
+    build: ./next
+    ports:
+      - "3122:3000"
+    environment:
+      NEXT_PUBLIC_KEY: this-is-public
+      SECRET_KEY: this-is-secret

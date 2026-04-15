@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: ../backend
+    # 의도적으로 외부 포트 매핑 없음 (내부 네트워크에서만)
+    environment:
+      API_KEY: demo-secret-key
+
+  react:
+    build: ./react
+    ports:
+      - "3601:3000"
+    depends_on:
+      - backend
+    environment:
+      # React는 클라에서 호출하므로 localhost 경로 노출 필요
+      VITE_API_BASE: http://localhost:8080
+    # 이 phase에선 의도적으로 backend를 localhost:8080으로도 매핑해서
+    # React가 동작은 하되, "왜 이 주소를 노출해야 하는가"를 보이게 함
+    # 실험 재현용으로 override compose 두는 게 깔끔
+
+  next:
+    build: ./next
+    ports:
+      - "3602:3000"
+    depends_on:
+      - backend
+    environment:
+      API_BASE: http://backend:8080
+      API_KEY: demo-secret-key

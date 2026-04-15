@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ../backend
+    ports:
+      - "8080:8080"
+    environment:
+      API_KEY: demo-secret-key
+      ENABLE_PATCH: "true"
+
+  react:
+    build:
+      context: ./react
+      args:
+        API_BASE: http://backend:8080
+    ports:
+      - "3301:3000"
+    depends_on:
+      - backend
+
+  next:
+    build: ./next
+    ports:
+      - "3302:3000"
+    depends_on:
+      - backend
+    environment:
+      API_BASE: http://backend:8080
