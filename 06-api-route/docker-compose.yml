@@ -1,22 +1,23 @@
 services:
   backend:
     build: ../backend
-    # 의도적으로 외부 포트 매핑 없음 (내부 네트워크에서만)
+    # 이 phase에선 의도적으로 외부 포트 매핑도 해 둔다.
+    # React 클라가 브라우저에서 직접 호출해야 하므로 localhost:8080이 필요함.
+    ports:
+      - "8080:8080"
     environment:
       API_KEY: demo-secret-key
 
   react:
-    build: ./react
+    build:
+      context: ./react
+      args:
+        # Vite는 빌드 타임에 번들에 박제되므로 build args로 주입한다.
+        VITE_API_BASE: http://localhost:8080
     ports:
       - "3601:3000"
     depends_on:
       - backend
-    environment:
-      # React는 클라에서 호출하므로 localhost 경로 노출 필요
-      VITE_API_BASE: http://localhost:8080
-    # 이 phase에선 의도적으로 backend를 localhost:8080으로도 매핑해서
-    # React가 동작은 하되, "왜 이 주소를 노출해야 하는가"를 보이게 함
-    # 실험 재현용으로 override compose 두는 게 깔끔
 
   next:
     build: ./next
@@ -25,5 +26,6 @@ services:
     depends_on:
       - backend
     environment:
+      # 서버(Next Route Handler)에서만 사용 → 클라 번들에 박제되지 않음
       API_BASE: http://backend:8080
       API_KEY: demo-secret-key

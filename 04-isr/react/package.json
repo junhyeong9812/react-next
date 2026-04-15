@@ -1,0 +1,26 @@
+{
+  "name": "isr-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build:client": "vite build --outDir dist --ssrManifest",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server-bundle",
+    "build": "npm run build:client && npm run build:server && node scripts/prerender.mjs",
+    "start": "serve -s dist -l 3000"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
+    "serve": "^14.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}
