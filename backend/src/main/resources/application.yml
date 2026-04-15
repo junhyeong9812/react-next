@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+app:
+  api-key: ${API_KEY:demo-secret-key}
+  slow-endpoint-delay-ms: ${SLOW_ENDPOINT_DELAY_MS:2000}
+  enable-patch: ${ENABLE_PATCH:true}
+  log-requests: ${LOG_REQUESTS:true}
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false

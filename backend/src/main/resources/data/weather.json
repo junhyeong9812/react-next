@@ -1,0 +1,5 @@
+{
+  "seoul": { "temp": 18, "condition": "맑음" },
+  "tokyo": { "temp": 22, "condition": "흐림" },
+  "newyork": { "temp": 12, "condition": "비" }
+}
