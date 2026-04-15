@@ -13,11 +13,18 @@ export const revalidate = 10;
 
 // 빌드 타임에 알려진 id 들을 프리렌더. 04-isr/react 와 동일하게 1~5번을 박제한다.
 // 단 revalidate 때문에 런타임에 백그라운드 재생성이 더해진다는 차이.
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const apiBase = process.env.API_BASE ?? 'http://backend:8080';
-  const res = await fetch(`${apiBase}/api/posts`);
-  const posts = (await res.json()) as Post[];
-  return posts.map((p) => ({ id: String(p.id) }));
+  try {
+    const res = await fetch(`${apiBase}/api/posts`);
+    if (!res.ok) return [];
+    const posts = (await res.json()) as Post[];
+    return posts.map((p) => ({ id: String(p.id) }));
+  } catch {
+    return [];
+  }
 }
 
 async function loadPost(id: string): Promise<Post | null> {

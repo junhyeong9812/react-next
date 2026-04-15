@@ -12,14 +12,17 @@ type Post = {
 // 이후 10초가 지나 첫 요청이 들어오면 Next 가 백그라운드에서 재생성한다.
 // 그 동안 들어온 요청은 stale HTML 을 그대로 받는다 (stale-while-revalidate).
 export const revalidate = 10;
+export const dynamic = 'force-dynamic';
 
 async function loadPosts(): Promise<Post[]> {
   const apiBase = process.env.API_BASE ?? 'http://backend:8080';
-  const res = await fetch(`${apiBase}/api/posts`, {
-    next: { revalidate: 10 },
-  });
-  if (!res.ok) throw new Error(`failed to fetch posts: ${res.status}`);
-  return (await res.json()) as Post[];
+  try {
+    const res = await fetch(`${apiBase}/api/posts`, { next: { revalidate: 10 } });
+    if (!res.ok) return [];
+    return (await res.json()) as Post[];
+  } catch {
+    return [];
+  }
 }
 
 export default async function PostsPage() {
